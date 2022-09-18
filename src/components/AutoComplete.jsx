@@ -7,7 +7,6 @@ const AutoComplete = () => {
 	const [result, setResult] = useState([]);
 	const { addStock } = useWatchListContext();
 	const eventHandler = (e) => {
-		console.log('e', e);
 		setSearch(e.target.value);
 	};
 	// 渲染Dropdown组件
@@ -39,13 +38,10 @@ const AutoComplete = () => {
 		);
 	};
 
-	// e => setSearch(e.target.value)
 	useEffect(() => {
 		let isMounted = true;
 		const fetchData = async () => {
 			const response = await fetchCorpsData(search);
-			console.log('response', response);
-			console.log('isMounted', isMounted);
 			setResult(response.data.result);
 		};
 		if (search.length) {

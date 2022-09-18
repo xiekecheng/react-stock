@@ -1,11 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
-import { fetchData } from '../api/finnHub';
+import { fetchQuoteData } from '../api/finnHub';
 import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs';
 import { useWatchListContext } from '../context/watchListContext';
-// import {useNavigate} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 const StockList = () => {
-	// const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AAPL']);
 	const [stock, setStock] = useState([]);
 	const { watchList, deleteStock } = useWatchListContext();
 
@@ -18,14 +16,11 @@ const StockList = () => {
 	useEffect(() => {
 		let isMounted = true;
 		const getData = async () => {
-			console.log('isMounted',isMounted);
 			const apis = watchList.map((item) => {
-				return fetchData(item);
+				return fetchQuoteData(item);
 			});
 			const response = await Promise.all(apis).catch(e=>{
-				console.log('e',e);
 			});
-			console.log('response', response);
 			response&&setStock(response);
 		};
 		if (isMounted) {
