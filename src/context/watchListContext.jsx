@@ -1,11 +1,13 @@
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, useEffect } from 'react';
 export const WatchListContext = createContext();
 export const useWatchListContext = () => {
 	return useContext(WatchListContext);
 };
 export const WatchListContenxtProvide = ({ children }) => {
-	const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AAPL']);
-
+	const [watchList, setWatchList] = useState(localStorage.getItem('watchList')?.split(',')??['GOOGL', 'MSFT', 'AAPL']);
+	useEffect(() => {
+		localStorage.setItem('watchList', watchList);
+	}, [watchList]);
 	// 增加 Stock
 	const addStock = (stock) => {
 		// 已存在则忽略
@@ -30,5 +32,3 @@ export const WatchListContenxtProvide = ({ children }) => {
 		</WatchListContext.Provider>
 	);
 };
-
-// export default ContenxtProvide;

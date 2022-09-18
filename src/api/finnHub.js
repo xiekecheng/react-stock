@@ -1,7 +1,7 @@
 import axios from './axios';
 
 // 获取数据
-export const fetchData = (symbol) => {
+export const fetchQuoteData = (symbol) => {
 	return axios.get('/quote', {
 		params: {
 			symbol: symbol,
@@ -24,3 +24,12 @@ export const fetchCandleData = (params) => {
 		params,
 	});
 };
+
+// 获取stock详情信息
+export const fetchStockInfo = (symbol)=>{
+	return axios.get('/stock/profile2',{
+		params:{
+			symbol
+		}
+	})
+}
